@@ -1,29 +1,45 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLogin } from "@privy-io/react-auth";
+import { Wallet } from "lucide-react";
 
 export function AuthCard() {
   const { login } = useLogin();
 
   return (
-    <Card className="p-8 w-full max-w-md">
-      <div className="text-center space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Token Faucet</h1>
-          <p className="text-muted-foreground">
-            Get free test tokens on Ink Sepolia
+    <div className="w-full max-w-md space-y-8">
+      <div className="text-center space-y-2">
+        <div className="mx-auto w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center mb-6">
+          <Wallet className="w-8 h-8 text-muted-foreground" />
+        </div>
+        
+        <h1 className="text-3xl font-bold">Gelato Ink Faucet</h1>
+        <p className="text-muted-foreground">
+          Mint GEL tokens for free on Ink Sepolia
+        </p>
+      </div>
+
+      <div className="bg-card border border-border rounded-2xl p-8 space-y-6">
+        <div className="space-y-2 text-center">
+          <h2 className="text-lg font-semibold">Connect to get started</h2>
+          <p className="text-sm text-muted-foreground">
+            Sign in with your email or social account to access the faucet
           </p>
         </div>
 
         <Button
           onClick={login}
-          className="[background:var(--brand-gradient)] text-primary-foreground shadow-xs h-10 rounded-md px-6 has-[>svg]:px-4"
+          size="lg"
+          className="w-full [background:var(--brand-gradient)] hover:opacity-90 text-white border-0 transition-opacity"
         >
           Sign In
         </Button>
+
+        <p className="text-xs text-center text-muted-foreground">
+          Powered by Gelato Network & Privy
+        </p>
       </div>
-    </Card>
+    </div>
   );
 }
