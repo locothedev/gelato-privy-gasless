@@ -9,7 +9,7 @@ export const GelatoProvider = ({ children }: { children: React.ReactNode }) => {
       settings={{
         apiKey: process.env.NEXT_PUBLIC_GELATO_API_KEY,
         scw: {
-          type: "gelato",
+          type: "kernel",
         },
         waas: {
           type: "privy",
