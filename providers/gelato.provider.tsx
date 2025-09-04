@@ -58,7 +58,7 @@ export const GelatoProvider = ({ children }: { children: React.ReactNode }) => {
                   inkSepolia.rpcUrls.default.http[0]
               ),
             },
-            ssr: false,
+            ssr: true,
           },
         },
       }}
