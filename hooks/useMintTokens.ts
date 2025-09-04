@@ -1,7 +1,7 @@
 import { erc20Abi } from "@/constants/abis";
 import { sponsored } from "@gelatonetwork/smartwallet";
 import { useGelatoSmartWalletPrivyContext } from "@gelatonetwork/smartwallet-react-privy";
-import { encodeFunctionData } from "viem";
+import { encodeFunctionData, parseUnits } from "viem";
 import { useMutation } from "wagmi/query";
 
 export default function useMintTokens() {
@@ -14,25 +14,23 @@ export default function useMintTokens() {
       if (!client) {
         throw new Error("Client not connected");
       }
-      const preparedCalls = await client.prepareCalls({
+
+      const result = await client.execute({
         payment: sponsored(),
-        nonce: BigInt(0),
         calls: [
           {
             to: process.env.NEXT_PUBLIC_ERC20_TOKEN_ADDRESS,
             data: encodeFunctionData({
               abi: erc20Abi,
               functionName: "mint",
-              args: [client.account.address, BigInt(1000 * 10 ** 18)],
+              args: [client.account.address, parseUnits("1000", 18)],
             }),
           },
         ],
       });
 
-      const result = await client.sendPreparedCalls({
-        preparedCalls,
-      });
-      return result.wait();
+      const txHash = await result.wait();
+      return txHash;
     },
   });
 }
