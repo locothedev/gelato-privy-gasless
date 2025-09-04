@@ -1,7 +1,12 @@
 import { erc20Abi } from "@/constants/abis";
 import { sponsored } from "@gelatonetwork/smartwallet";
 import { useGelatoSmartWalletPrivyContext } from "@gelatonetwork/smartwallet-react-privy";
-import { Address, encodeFunctionData, parseUnits, UserRejectedRequestError } from "viem";
+import {
+  Address,
+  encodeFunctionData,
+  parseUnits,
+  UserRejectedRequestError,
+} from "viem";
 import { useMutation } from "wagmi/query";
 import { toast } from "sonner";
 
@@ -53,6 +58,7 @@ export default function useMintTokens() {
 
       await client.waitForTransactionReceipt({
         hash: promiseAddress,
+        confirmations: 2,
       });
 
       return promiseAddress;
