@@ -1,7 +1,7 @@
 "use client";
 import { GelatoSmartWalletPrivyContextProvider as GelatoSmartWalletContextProvider } from "@gelatonetwork/smartwallet-react-privy";
 import { http } from "viem";
-import { baseSepolia } from "viem/chains";
+import { inkSepolia } from "viem/chains";
 
 export const GelatoProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -17,39 +17,46 @@ export const GelatoProvider = ({ children }: { children: React.ReactNode }) => {
           customChains: {
             supportedChains: [
               {
-                id: baseSepolia.id,
-                name: baseSepolia.name,
-                nativeCurrency: baseSepolia.nativeCurrency,
+                id: inkSepolia.id,
+                name: inkSepolia.name,
+                nativeCurrency: inkSepolia.nativeCurrency,
                 rpcUrls: {
                   default: {
                     http: [process.env.NEXT_PUBLIC_RPC_URL],
                     webSocket: [process.env.NEXT_PUBLIC_WS_RPC_URL],
                   },
+                  public: inkSepolia.rpcUrls.default,
                 },
-                blockExplorers: baseSepolia.blockExplorers,
-                testnet: baseSepolia.testnet,
+                blockExplorers: inkSepolia.blockExplorers,
+                testnet: inkSepolia.testnet,
               },
             ],
           },
         },
         defaultChain: {
-          id: baseSepolia.id,
-          name: baseSepolia.name,
-          nativeCurrency: baseSepolia.nativeCurrency,
+          id: inkSepolia.id,
+          name: inkSepolia.name,
+          nativeCurrency: inkSepolia.nativeCurrency,
           rpcUrls: {
             default: {
-              http: [process.env.NEXT_PUBLIC_RPC_URL],
+              http: process.env.NEXT_PUBLIC_RPC_URL
+                ? [process.env.NEXT_PUBLIC_RPC_URL]
+                : inkSepolia.rpcUrls.default.http,
               webSocket: [process.env.NEXT_PUBLIC_WS_RPC_URL],
             },
+            public: inkSepolia.rpcUrls.default,
           },
-          blockExplorers: baseSepolia.blockExplorers,
-          testnet: baseSepolia.testnet,
+          blockExplorers: inkSepolia.blockExplorers,
+          testnet: inkSepolia.testnet,
         },
         wagmi: {
           config: {
-            chains: [baseSepolia],
+            chains: [inkSepolia],
             transports: {
-              [baseSepolia.id]: http(process.env.NEXT_PUBLIC_RPC_URL),
+              [inkSepolia.id]: http(
+                process.env.NEXT_PUBLIC_RPC_URL ||
+                  inkSepolia.rpcUrls.default.http[0]
+              ),
             },
             ssr: false,
           },

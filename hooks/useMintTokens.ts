@@ -1,7 +1,7 @@
 import { erc20Abi } from "@/constants/abis";
 import { sponsored } from "@gelatonetwork/smartwallet";
 import { useGelatoSmartWalletPrivyContext } from "@gelatonetwork/smartwallet-react-privy";
-import { encodeFunctionData, parseUnits } from "viem";
+import { Address, encodeFunctionData, parseUnits } from "viem";
 import { useMutation } from "wagmi/query";
 
 export default function useMintTokens() {
@@ -9,7 +9,7 @@ export default function useMintTokens() {
     gelato: { client },
   } = useGelatoSmartWalletPrivyContext();
 
-  return useMutation({
+  return useMutation<Address>({
     mutationFn: async () => {
       if (!client) {
         throw new Error("Client not connected");
@@ -29,8 +29,7 @@ export default function useMintTokens() {
         ],
       });
 
-      const txHash = await result.wait();
-      return txHash;
+      return result.wait();
     },
   });
 }
