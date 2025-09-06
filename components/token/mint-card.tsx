@@ -1,9 +1,9 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Coins, CheckCircle, Loader2, ExternalLink } from "lucide-react";
+import { Card } from "@gelato-ui/components/ui/card";
+import { Button } from "@gelato-ui/components/ui/button";
+import { Badge } from "@gelato-ui/components/ui/badge";
+import { Coins, ExternalLink, Loader2 } from "lucide-react";
 import Image from "next/image";
-import { truncateAddress } from "@/lib/truncate";
+import { truncateAddress } from "@gelato-ui/utils/address";
 import { INK_SEPOLIA_EXPLORER_URL } from "@/constants/explorer";
 
 interface MintTokenCardProps {
@@ -75,17 +75,19 @@ const MintTokenCard: React.FC<MintTokenCardProps> = ({
               disabled={isPending}
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              {isPending ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Minting...
-                </>
-              ) : (
-                <>
-                  <Coins className="w-4 h-4 mr-2" />
-                  Mint Tokens
-                </>
-              )}
+              {isPending
+                ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Minting...
+                  </>
+                )
+                : (
+                  <>
+                    <Coins className="w-4 h-4 mr-2" />
+                    Mint Tokens
+                  </>
+                )}
             </Button>
           }
         </div>

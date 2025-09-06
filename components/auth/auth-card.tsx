@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@gelato-ui/components/ui/button";
 import { useLogin } from "@privy-io/react-auth";
 import { Wallet } from "lucide-react";
 
@@ -13,7 +13,7 @@ export function AuthCard() {
         <div className="mx-auto w-16 h-16 rounded-full bg-card border border-border flex items-center justify-center mb-6">
           <Wallet className="w-8 h-8 text-muted-foreground" />
         </div>
-        
+
         <h1 className="text-3xl font-bold">Gelato Ink Faucet</h1>
         <p className="text-muted-foreground">
           Mint GEL tokens for free on Ink Sepolia

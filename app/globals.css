@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "../packages/gelato-ui/src/styles/index.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -41,8 +42,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --brand-gradient: linear-gradient(80deg, rgb(230, 29, 77) 0%, rgb(215, 6, 102) 100%);
-  --animate-star-movement-bottom: star-movement-bottom linear infinite alternate;
+  --brand-gradient: linear-gradient(
+    80deg,
+    rgb(230, 29, 77) 0%,
+    rgb(215, 6, 102) 100%
+  );
+  --animate-star-movement-bottom: star-movement-bottom linear infinite
+    alternate;
   --animate-star-movement-top: star-movement-top linear infinite alternate;
 
   @keyframes star-movement-bottom {
@@ -67,33 +73,37 @@
     }
   }
   @keyframes star-movement-bottom {
-  0% {
-    transform: translate(0%, 0%);
-    opacity: 1;
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
     }
-  100% {
-    transform: translate(-100%, 0%);
-    opacity: 0;
+    100% {
+      transform: translate(-100%, 0%);
+      opacity: 0;
     }
   }
   @keyframes star-movement-top {
-  0% {
-    transform: translate(0%, 0%);
-    opacity: 1;
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
     }
-  100% {
-    transform: translate(100%, 0%);
-    opacity: 0;
+    100% {
+      transform: translate(100%, 0%);
+      opacity: 0;
     }
   }
 }
 
 :root {
   --radius: 0.5rem;
-  --brand-gradient: linear-gradient(80deg, rgb(230, 29, 77) 0%, rgb(215, 6, 102) 100%);
+  --brand-gradient: linear-gradient(
+    80deg,
+    rgb(230, 29, 77) 0%,
+    rgb(215, 6, 102) 100%
+  );
   --brand-primary: rgb(230, 29, 77);
   --brand-secondary: rgb(215, 6, 102);
-  
+
   /* Dark theme by default */
   --background: #0a0a0a;
   --foreground: #fafafa;
@@ -113,7 +123,7 @@
   --border: #262626;
   --input: #1a1a1a;
   --ring: rgb(230, 29, 77);
-  
+
   /* Sidebar */
   --sidebar: #111111;
   --sidebar-foreground: #fafafa;
@@ -125,12 +135,11 @@
   --sidebar-ring: #7c3aed;
 }
 
-
 @layer base {
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground antialiased;
   }

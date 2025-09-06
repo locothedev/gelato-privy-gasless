@@ -3,8 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/providers";
 import { Suspense } from "react";
-import { Toaster } from "@/components/ui/sonner";
-import LoadingSplash from "@/components/ui/loading-splash";
+import { Toaster } from "@gelato-ui/components/ui/sonner";
+import GelatoLoading from "@gelato-ui/components/ui/gelato-loading";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
-        <Suspense fallback={<LoadingSplash />}>
+        <Suspense fallback={<GelatoLoading />}>
           <Providers>{children}</Providers>
         </Suspense>
         <Toaster position="bottom-right" />

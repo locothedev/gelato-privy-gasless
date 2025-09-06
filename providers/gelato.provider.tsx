@@ -55,7 +55,7 @@ export const GelatoProvider = ({ children }: { children: React.ReactNode }) => {
             transports: {
               [inkSepolia.id]: http(
                 process.env.NEXT_PUBLIC_RPC_URL ||
-                  inkSepolia.rpcUrls.default.http[0]
+                  inkSepolia.rpcUrls.default.http[0],
               ),
             },
             ssr: true,

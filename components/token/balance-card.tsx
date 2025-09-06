@@ -1,7 +1,7 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Card } from "@gelato-ui/components/ui/card";
+import { Skeleton } from "@gelato-ui/components/ui/skeleton";
 import { RefreshCcw, Wallet } from "lucide-react";
 import Image from "next/image";
 
@@ -41,39 +41,39 @@ export function BalanceCard({
               <p className="text-sm text-muted-foreground">ERC20 Tokens</p>
             </div>
           </div>
-          {isRefetching ? (
-            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-          ) : (
-            <RefreshCcw
-              className="h-5 w-5 text-muted-foreground cursor-pointer hover:text-foreground"
-              onClick={refetch}
-            />
-          )}
-        </div>
-        {isPending ? (
-          <Skeleton className="h-10 w-3/4" />
-        ) : (
-          <div className="space-y-1 flex justify-between items-center gap-4 p-4 bg-accent/50 rounded-lg">
-            <div className="flex items-center space-x-2">
-              <Image
-                className="rounded-3xl"
-                src="/gelato.png"
-                alt="GEL"
-                height={24}
-                width={24}
+          {isRefetching
+            ? <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+            : (
+              <RefreshCcw
+                className="h-5 w-5 text-muted-foreground cursor-pointer hover:text-foreground"
+                onClick={refetch}
               />
-              <div className="flex flex-col">
-                <p className="text-md font-bold text-white">GEL</p>
-                <p className="hidden md:block text-xs text-muted-foreground">
-                  Gelato Ink
-                </p>
+            )}
+        </div>
+        {isPending
+          ? <Skeleton className="h-10 w-3/4" />
+          : (
+            <div className="space-y-1 flex justify-between items-center gap-4 p-4 bg-accent/50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Image
+                  className="rounded-3xl"
+                  src="/gelato.png"
+                  alt="GEL"
+                  height={24}
+                  width={24}
+                />
+                <div className="flex flex-col">
+                  <p className="text-md font-bold text-white">GEL</p>
+                  <p className="hidden md:block text-xs text-muted-foreground">
+                    Gelato Ink
+                  </p>
+                </div>
               </div>
+              <p className="text-md md:text-lg font-bold transition-all duration-300">
+                {formatBalance(balance)}
+              </p>
             </div>
-            <p className="text-md md:text-lg font-bold transition-all duration-300">
-              {formatBalance(balance)}
-            </p>
-          </div>
-        )}
+          )}
       </div>
     </Card>
   );

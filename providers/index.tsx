@@ -1,15 +1,16 @@
 "use client";
+import { GelatoLoading } from "@/packages/gelato-ui/src";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 const GelatoProvider = dynamic(
   () => import("./gelato.provider").then((mod) => mod.GelatoProvider),
-  { ssr: false }
+  { ssr: false },
 );
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <Suspense fallback={<div>Loading Client...</div>}>
+    <Suspense fallback={<GelatoLoading />}>
       <GelatoProvider>{children}</GelatoProvider>
     </Suspense>
   );

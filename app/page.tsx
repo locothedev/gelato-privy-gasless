@@ -10,7 +10,7 @@ import { AuthCard } from "@/components/auth/auth-card";
 import { BalanceCard } from "@/components/token/balance-card";
 import MintCard from "@/components/token/mint-card";
 import { usePrivy } from "@privy-io/react-auth";
-import LoadingSplash from "@/components/ui/loading-splash";
+import GelatoLoading from "@gelato-ui/components/ui/gelato-loading";
 import { WalletPill } from "@/components/wallet/wallet-pill";
 
 export default function Home() {
@@ -44,7 +44,7 @@ export default function Home() {
   };
 
   if (!ready || (!client && authenticated)) {
-    return <LoadingSplash />;
+    return <GelatoLoading />;
   }
 
   if (!authenticated) {
