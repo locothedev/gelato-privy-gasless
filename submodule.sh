@@ -1,30 +1,25 @@
 #!/usr/bin/env bash
-set -euo pipefail
- 
-# Move to the repo root
-cd "$(git rev-parse --show-toplevel)"
- 
-# Ensure we’re not in a detached HEAD or bare repo
-if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  echo "Not inside a valid Git working tree."
-  exit 1
+
+# Exit on error
+set -e
+
+echo "Setting up gelato-ui submodule for Vercel deployment..."
+
+# Remove existing directory if it exists
+if [ -d "packages/gelato-ui" ]; then
+  echo "Removing existing packages/gelato-ui directory..."
+  rm -rf packages/gelato-ui
 fi
- 
-# Remove existing submodule entry (if any)
-if git config --file .gitmodules --get-regexp "^submodule\.packages/gelato-ui\." > /dev/null 2>&1; then
-  echo "Removing existing submodule config..."
-  git submodule deinit -f packages/gelato-ui || true
-  git rm -f packages/gelato-ui || true
-  rm -rf .git/modules/packages/gelato-ui
-fi
- 
-# Clean local packages/gelato-ui dir if needed
-rm -rf packages/gelato-ui
- 
-# Add the submodule
-echo "Adding submodule..."
-git submodule add -f "https://locothedev:${GITHUB_REPO_CLONE_TOKEN}@github.com/locothedev/gelato-ui.git" packages/gelato-ui
- 
-# Sync & init
-git submodule sync
-git submodule update --init --recursive
+
+# Create packages directory if it doesn't exist
+mkdir -p packages
+
+# Clone the repository directly
+echo "Cloning gelato-ui repository..."
+git clone https://locothedev:${GITHUB_REPO_CLONE_TOKEN}@github.com/locothedev/gelato-ui.git packages/gelato-ui
+
+# Remove the .git directory to avoid submodule issues
+echo "Cleaning up git metadata..."
+rm -rf packages/gelato-ui/.git
+
+echo "Submodule setup complete!"
