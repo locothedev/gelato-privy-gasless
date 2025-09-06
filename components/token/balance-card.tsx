@@ -4,12 +4,16 @@ import { Card } from "@gelato-ui/components/ui/card";
 import { Skeleton } from "@gelato-ui/components/ui/skeleton";
 import { RefreshCcw, Wallet } from "lucide-react";
 import Image from "next/image";
+import { TransferModal } from "./transfer-modal";
+import { Address } from "viem";
 
 interface BalanceCardProps {
   balance: string;
   isPending: boolean;
   isRefetching: boolean;
   refetch: () => void;
+  onTransfer: (recipient: Address, amount: string) => Promise<void>;
+  isTransferring?: boolean;
 }
 
 export function BalanceCard({
@@ -17,6 +21,8 @@ export function BalanceCard({
   isPending,
   isRefetching,
   refetch,
+  onTransfer,
+  isTransferring,
 }: BalanceCardProps) {
   const formatBalance = (bal: string) => {
     const num = parseFloat(bal);
@@ -30,7 +36,7 @@ export function BalanceCard({
 
   return (
     <Card className="w-full max-w-md mx-auto bg-background border-border shadow-lg hover:shadow-xl transition-all duration-300">
-      <div className="p-3 space-y-6">
+      <div className="p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Wallet className="rounded-2xl h-12 w-12 p-2 bg-card/20 text-foreground" />
@@ -49,28 +55,33 @@ export function BalanceCard({
           />
         </div>
         {isPending
-          ? <Skeleton className="h-10 w-3/4" />
+          ? <Skeleton className="h-20 w-full" />
           : (
-            <div className="space-y-1 flex justify-between items-center gap-4 p-4 bg-accent/50 rounded-lg">
-              <div className="flex items-center space-x-2">
-                <Image
-                  className="rounded-3xl"
-                  src="/gelato.png"
-                  alt="GEL"
-                  height={24}
-                  width={24}
-                />
-                <div className="flex flex-col">
-                  <p className="text-md font-bold text-white">GEL</p>
-                  <p className="hidden md:block text-xs text-muted-foreground">
-                    Gelato Ink
-                  </p>
+            <>
+              <div className="flex justify-between items-center gap-4 p-4 bg-accent/50 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <Image
+                    className="rounded-full"
+                    src="/gelato.png"
+                    alt="GEL"
+                    height={32}
+                    width={32}
+                  />
+                  <div className="flex flex-col">
+                    <p className="text-sm font-medium text-muted-foreground">GEL</p>
+                    <p className="text-xl font-bold">
+                      {formatBalance(balance)}
+                    </p>
+                  </div>
                 </div>
               </div>
-              <p className="text-md md:text-lg font-bold transition-all duration-300">
-                {formatBalance(balance)}
-              </p>
-            </div>
+              <TransferModal
+                balance={balance}
+                onTransfer={onTransfer}
+                isTransferring={isTransferring}
+                tokenSymbol="GEL"
+              />
+            </>
           )}
       </div>
     </Card>

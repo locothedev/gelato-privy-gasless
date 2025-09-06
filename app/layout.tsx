@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/providers";
 import { Suspense } from "react";
-import { Toaster } from "@gelato-ui/components/ui/sonner";
+import { Toaster } from "sonner";
 import GelatoLoading from "@gelato-ui/components/ui/gelato-loading";
 
 const geistSans = Geist({
@@ -35,7 +35,7 @@ export default function RootLayout({
         <Suspense fallback={<GelatoLoading />}>
           <Providers>{children}</Providers>
         </Suspense>
-        <Toaster position="bottom-right" />
+        <Toaster position="bottom-right" theme="dark" />
       </body>
     </html>
   );
