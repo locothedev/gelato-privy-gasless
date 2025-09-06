@@ -22,4 +22,8 @@ git clone https://locothedev:${GITHUB_REPO_CLONE_TOKEN}@github.com/locothedev/ge
 echo "Cleaning up git metadata..."
 rm -rf packages/gelato-ui/.git
 
+# Install dependencies in the gelato-ui package
+echo "Installing gelato-ui dependencies..."
+cd packages/gelato-ui && bun install && cd ../..
+
 echo "Submodule setup complete!"
