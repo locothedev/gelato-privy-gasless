@@ -41,14 +41,12 @@ export function BalanceCard({
               <p className="text-sm text-muted-foreground">ERC20 Tokens</p>
             </div>
           </div>
-          {isRefetching
-            ? <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-            : (
-              <RefreshCcw
-                className="h-5 w-5 text-muted-foreground cursor-pointer hover:text-foreground"
-                onClick={refetch}
-              />
-            )}
+          <RefreshCcw
+            className={`h-5 w-5 text-muted-foreground cursor-pointer hover:text-foreground transition-transform ${
+              isRefetching ? "animate-spin" : ""
+            }`}
+            onClick={!isRefetching ? refetch : undefined}
+          />
         </div>
         {isPending
           ? <Skeleton className="h-10 w-3/4" />
